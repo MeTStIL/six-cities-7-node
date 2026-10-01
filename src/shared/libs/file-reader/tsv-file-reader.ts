@@ -1,8 +1,9 @@
 import { IFileReader } from './file-reader.interface.js';
 import { readFileSync } from 'node:fs';
-import { TAmenity, TAvailableCity, THousing, TRentalOffer, TUserStatus } from '../../types/index.js';
+import { TRentalOffer, TUserStatus } from '../../types/index.js';
 import { SUB_FIELD_SEPARATOR } from '../../constants/index.js';
 import { parseBooleanFromString } from '../../helpers/index.js';
+import { isAvailableAmenity, isAvailableCity, isAvailableHousing } from '../../guards/index.js';
 
 export class TsvFileReader implements IFileReader {
   private rawData = '';
@@ -50,17 +51,17 @@ export class TsvFileReader implements IFileReader {
           title,
           description,
           postDate: new Date(postDate),
-          city: city as TAvailableCity,
+          city: isAvailableCity(city) ? city : undefined,
           previewImage,
           images: images.split(SUB_FIELD_SEPARATOR),
           isPremium: parseBooleanFromString(isPremium),
           isFavourite: parseBooleanFromString(isFavourite),
           rating: parseFloat(rating),
-          housingType: housingType as THousing,
+          housingType: isAvailableHousing(housingType) ? housingType : undefined,
           rooms: parseInt(rooms, 10),
           maxGuests: parseInt(maxGuests, 10),
           price: parseInt(price, 10),
-          amenities: amenities.split(SUB_FIELD_SEPARATOR).map((item) => item as TAmenity),
+          amenities: amenities.split(SUB_FIELD_SEPARATOR).map((item) => (isAvailableAmenity(item) ? item : undefined)),
           author: {
             name: authorName,
             email: authorEmail,
