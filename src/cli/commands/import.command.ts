@@ -1,5 +1,5 @@
 import { ICommand } from './command.interface';
-import { TsvFileReader } from '../../shared';
+import { createOffer, TsvFileReader } from '../../shared';
 import chalk from 'chalk';
 
 export class ImportCommand implements ICommand {
@@ -7,20 +7,22 @@ export class ImportCommand implements ICommand {
     return '--import';
   }
 
+  private onImportedLine(line: string) {
+    const offer = createOffer(line);
+    console.info(offer);
+  }
+
+  private onCompleteImport(count: number) {
+    console.info(chalk.green(`\n${count} rows imported.`));
+  }
+
   public async execute(...parameters: string[]): Promise<void> {
     const [filename] = parameters;
     const fileReader = new TsvFileReader(filename.trim());
 
-    try {
-      fileReader.read();
-      console.log(fileReader.toArray());
-    } catch (err) {
-      if (!(err instanceof Error)) {
-        throw err;
-      }
+    fileReader.on('line', this.onImportedLine);
+    fileReader.on('end', this.onCompleteImport);
 
-      console.error(chalk.red(`Can't import data from file: ${filename}`));
-      console.error(`Details: ${err.message}`);
-    }
+    await fileReader.read();
   }
 }

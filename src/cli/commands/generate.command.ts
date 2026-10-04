@@ -1,8 +1,8 @@
 import { ICommand } from './command.interface';
 import { IMockServerData, TsvOfferGenerator } from '../../shared';
 import got from 'got';
-import { appendFile } from 'node:fs/promises';
 import chalk from 'chalk';
+import { TsvFileWriter } from '../../shared/libs/file-writer';
 
 export class GenerateCommand implements ICommand {
   private initialData!: IMockServerData;
@@ -21,9 +21,10 @@ export class GenerateCommand implements ICommand {
 
   private async write(filepath: string, offerCount: number) {
     const tsvOfferGenerator = new TsvOfferGenerator(this.initialData);
+    const tsvFileWriter = new TsvFileWriter(filepath);
 
     for (let i = 0; i < offerCount; i++) {
-      await appendFile(filepath, `${tsvOfferGenerator.generate()}\n`, { encoding: 'utf8' });
+      await tsvFileWriter.write(tsvOfferGenerator.generate());
     }
   }
 
