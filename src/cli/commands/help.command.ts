@@ -1,4 +1,4 @@
-import { ICommand } from './command.interface.js';
+import { ICommand } from './command.interface';
 import chalk from 'chalk';
 
 export class HelpCommand implements ICommand {

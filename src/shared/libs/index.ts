@@ -1,1 +1,1 @@
-export * from './file-reader/index.js';
+export * from './file-reader/index';

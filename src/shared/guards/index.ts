@@ -1,3 +1,3 @@
-export * from './amenity.js';
-export * from './city.js';
-export * from './housing.js';
+export * from './amenity';
+export * from './city';
+export * from './housing';

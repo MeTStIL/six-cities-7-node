@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -21,7 +21,7 @@
     "outDir": "./dist",
     "emitDecoratorMetadata": true,
     "types": [
-      "node",
+      "node"
     ],
     "lib": [
       "ESNext"
@@ -33,8 +33,5 @@
   "exclude": [
     "node_modules",
     "**/*.test.ts"
-  ],
-  "ts-node": {
-    "esm": true
-  }
+  ]
 }

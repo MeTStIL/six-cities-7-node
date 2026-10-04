@@ -9,9 +9,12 @@
   ],
   "main": "main.js",
   "scripts": {
-    "start": "npm run build && node ./dist/main.js",
-    "build": "npm run clean && npm run compile && chmod u+x dist/main.cli.js ",
+    "start": "vite-node src/main.ts",
+    "dev-cli": "vite-node src/main.cli.ts",
+    "dev-main": "vite-node src/main.ts",
+    "build": "npm run typecheck && rimraf dist && vite build && chmod u+x dist/main.cli.js",
     "lint": "eslint src/ --ext .ts",
+    "typecheck": "tsc --noEmit",
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
     "ts": "ts-node"
@@ -23,10 +26,13 @@
     "eslint": "8.39.0",
     "eslint-config-htmlacademy": "9.1.1",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-unused-imports": "^4.4.1",
     "prettier": "^3.9.9",
     "rimraf": "3.0.2",
     "ts-node": "10.9.1",
-    "typescript": "4.9.5"
+    "typescript": "^5.3.3",
+    "vite": "5",
+    "vite-node": "1.6.0"
   },
   "type": "module",
   "engines": {

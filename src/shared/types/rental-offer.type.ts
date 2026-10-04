@@ -1,8 +1,8 @@
-import { TAvailableCity } from './available-city.type.js';
-import { THousing } from './housing.type.js';
-import { TAmenity } from './available-amenities.type.js';
-import { TUser } from './user.type.js';
-import { TLocation } from './location.type.js';
+import { TAvailableCity } from './available-city.type';
+import { THousing } from './housing.type';
+import { TAmenity } from './available-amenities.type';
+import { TUser } from './user.type';
+import { TLocation } from './location.type';
 
 export type TRentalOffer = {
   title: string;

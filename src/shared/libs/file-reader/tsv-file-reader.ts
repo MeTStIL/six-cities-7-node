@@ -1,9 +1,9 @@
-import { IFileReader } from './file-reader.interface.js';
+import { IFileReader } from './file-reader.interface';
 import { readFileSync } from 'node:fs';
-import { TRentalOffer, TUserStatus } from '../../types/index.js';
-import { SUB_FIELD_SEPARATOR } from '../../constants/index.js';
-import { parseBooleanFromString } from '../../helpers/index.js';
-import { isAvailableAmenity, isAvailableCity, isAvailableHousing } from '../../guards/index.js';
+import { TRentalOffer, TUserStatus } from '../../types';
+import { SUB_FIELD_SEPARATOR } from '../../constants';
+import { parseBooleanFromString } from '../../helpers';
+import { isAvailableAmenity, isAvailableCity, isAvailableHousing } from '../../guards';
 
 export class TsvFileReader implements IFileReader {
   private rawData = '';
