@@ -1,4 +1,4 @@
-import { TAvailableCity } from './available-city.type';
+import { TCity } from './available-city.type';
 import { THousing } from './housing.type';
 import { TAmenity } from './available-amenities.type';
 import { TUser } from './user.type';
@@ -8,7 +8,7 @@ export type TRentalOffer = {
   title: string;
   description: string;
   postDate: Date;
-  city: TAvailableCity | undefined;
+  city: TCity | undefined;
   previewImage: string;
   images: Array<string>;
   isPremium: boolean;
