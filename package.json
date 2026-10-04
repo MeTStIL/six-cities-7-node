@@ -11,13 +11,13 @@
   "scripts": {
     "start": "vite-node src/main.ts",
     "dev-cli": "vite-node src/main.cli.ts",
-    "dev-main": "vite-node src/main.ts",
     "build": "npm run typecheck && rimraf dist && vite build && chmod u+x dist/main.cli.js",
     "lint": "eslint src/ --ext .ts",
     "typecheck": "tsc --noEmit",
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
-    "ts": "ts-node"
+    "ts": "ts-node",
+    "mock:server": "json-server ./mocks/mock-server-data.json --port 3000"
   },
   "devDependencies": {
     "@types/node": "18.16.3",
@@ -27,6 +27,7 @@
     "eslint-config-htmlacademy": "9.1.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-unused-imports": "^4.4.1",
+    "json-server": "0.17.3",
     "prettier": "^3.9.9",
     "rimraf": "3.0.2",
     "ts-node": "10.9.1",
