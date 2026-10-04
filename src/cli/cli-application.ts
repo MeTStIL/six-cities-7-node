@@ -1,5 +1,6 @@
 import { CommandParser } from './command-parser';
 import { ICommand } from './commands';
+import { printError } from '../shared/helpers/print-error';
 
 type CommandCollection = Record<string, ICommand>;
 
@@ -33,6 +34,6 @@ export class CLIApplication {
     const [commandName] = Object.keys(parsedCommand);
     const command = this.getCommand(commandName);
     const commandArguments = parsedCommand[commandName] ?? [];
-    command.execute(...commandArguments);
+    command.execute(...commandArguments).catch(printError);
   }
 }

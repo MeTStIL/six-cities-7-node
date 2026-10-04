@@ -1,0 +1,47 @@
+import { ICommand } from './command.interface';
+import { IMockServerData, TsvOfferGenerator } from '../../shared';
+import got from 'got';
+import { appendFile } from 'node:fs/promises';
+import chalk from 'chalk';
+
+export class GenerateCommand implements ICommand {
+  private initialData!: IMockServerData;
+
+  public getName(): string {
+    return '--generate';
+  }
+
+  private async load(url: string): Promise<void> {
+    try {
+      this.initialData = await got.get(url).json();
+    } catch {
+      throw new Error(`Can't load data from ${url}`);
+    }
+  }
+
+  private async write(filepath: string, offerCount: number) {
+    const tsvOfferGenerator = new TsvOfferGenerator(this.initialData);
+
+    for (let i = 0; i < offerCount; i++) {
+      await appendFile(filepath, `${tsvOfferGenerator.generate()}\n`, { encoding: 'utf8' });
+    }
+  }
+
+  public async execute(...parameters: [string?, string?, string?]): Promise<void> {
+    const [count, filepath, url] = parameters;
+
+    if (!count || !filepath || !url) {
+      throw new Error('Missing required arguments: <count> <filepath> <url>');
+    }
+    const offerCount = Number.parseInt(count, 10);
+
+    if (Number.isNaN(offerCount) || offerCount <= 0) {
+      throw new Error('The <count> parameter must be a valid positive number');
+    }
+
+    await this.load(url);
+    await this.write(filepath, offerCount);
+
+    console.info(chalk.green(`File ${filepath} was created!`));
+  }
+}

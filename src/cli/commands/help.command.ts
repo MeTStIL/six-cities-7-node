@@ -15,6 +15,7 @@ export class HelpCommand implements ICommand {
             --help:                      # печатает этот текст
             --version:                   # выводит номер версии
             --import <path>:             # импортирует данные из TSV
+            --generate <n> <path> <url>  # генерирует произвольное количество тестовых данных
     `);
   }
 }

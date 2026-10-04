@@ -16,39 +16,60 @@ import {
   GUESTS_CONFIG,
   PRICE_CONFIG,
   ROOMS_CONFIG,
+  SUB_FIELD_SEPARATOR,
   TABULATION_SYMBOL,
 } from '../../constants';
 
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
 
-export class TsvSBOfferGenerator implements IOfferGenerator {
+export class TsvOfferGenerator implements IOfferGenerator {
   constructor(private readonly mockData: IMockServerData) {}
 
   private serializeOfferToTsv(offer: TRentalOffer): string {
+    const {
+      title,
+      description,
+      postDate,
+      city,
+      previewImage,
+      images,
+      isPremium,
+      isFavourite,
+      rating,
+      housingType,
+      rooms,
+      maxGuests,
+      price,
+      amenities,
+      author,
+      commentsCount,
+      location,
+    } = offer;
+
     return [
-      offer.title,
-      offer.description,
-      offer.postDate.toISOString(),
-      offer.city,
-      offer.previewImage,
-      offer.images.join(TABULATION_SYMBOL),
-      offer.isPremium,
-      offer.isFavourite,
-      offer.rating,
-      offer.housingType,
-      offer.rooms,
-      offer.maxGuests,
-      offer.price,
-      offer.amenities.join(TABULATION_SYMBOL),
-      offer.author.name,
-      offer.author.email,
-      offer.author.avatar,
-      offer.author.password,
-      offer.author.type,
-      offer.commentsCount,
-      offer.location.latitude,
-      offer.location.longitude,
+      title,
+      description,
+      postDate.toISOString(),
+      city,
+      previewImage,
+      images.join(SUB_FIELD_SEPARATOR),
+      isPremium,
+      isFavourite,
+      rating,
+      housingType,
+      rooms,
+      maxGuests,
+      price,
+      amenities.join(SUB_FIELD_SEPARATOR),
+      author.name,
+      author.email,
+      author.avatar,
+      author.password,
+      author.type,
+      commentsCount,
+      location.latitude,
+      location.longitude,
     ].join(TABULATION_SYMBOL);
   }
 
@@ -61,7 +82,7 @@ export class TsvSBOfferGenerator implements IOfferGenerator {
       postDate: dayjs().subtract(getRandomInteger(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day').toDate(),
       city,
       previewImage: getRandomElement(this.mockData.previewImages),
-      images: getRandomElement(this.mockData.images).split(TABULATION_SYMBOL),
+      images: getRandomElement(this.mockData.images).split(SUB_FIELD_SEPARATOR),
       isPremium: getRandomBoolean(),
       isFavourite: getRandomBoolean(),
       rating: getRandomValue(1.0, 5.0, 1),

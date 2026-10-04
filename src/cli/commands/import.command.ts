@@ -7,7 +7,7 @@ export class ImportCommand implements ICommand {
     return '--import';
   }
 
-  public execute(...parameters: string[]): void {
+  public async execute(...parameters: string[]): Promise<void> {
     const [filename] = parameters;
     const fileReader = new TsvFileReader(filename.trim());
 
