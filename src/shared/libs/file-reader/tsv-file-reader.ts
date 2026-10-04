@@ -1,7 +1,7 @@
 import { IFileReader } from './file-reader.interface';
 import { readFileSync } from 'node:fs';
 import { TRentalOffer, TUserStatus } from '../../types';
-import { SUB_FIELD_SEPARATOR } from '../../constants';
+import { SUB_FIELD_SEPARATOR, TABULATION_SYMBOL } from '../../constants';
 import { parseBooleanFromString } from '../../helpers';
 import { isAvailableAmenity, isAvailableCity, isAvailableHousing } from '../../guards';
 
@@ -22,7 +22,7 @@ export class TsvFileReader implements IFileReader {
     return this.rawData
       .split('\n')
       .filter((row) => row.trim().length > 0)
-      .map((line) => line.split('\t'))
+      .map((line) => line.split(TABULATION_SYMBOL))
       .map(
         ([
           title,

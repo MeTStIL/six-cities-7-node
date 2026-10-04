@@ -1,1 +1,2 @@
-export * from './file-reader/index';
+export * from './file-reader';
+export * from './offer-generator';

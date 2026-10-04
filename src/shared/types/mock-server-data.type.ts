@@ -1,10 +1,12 @@
-export type TMockServerData = {
-  titles: string[];
-  descriptions: string[];
-  cities: string[];
-  previewImages: string[];
-  images: string[];
-  authors: string[];
-  emails: string[];
-  avatars: string[];
-};
+type TBaseMockData = Array<string>;
+
+export interface IMockServerData {
+  titles: TBaseMockData;
+  descriptions: TBaseMockData;
+  cities: TBaseMockData;
+  previewImages: TBaseMockData;
+  images: TBaseMockData;
+  authors: TBaseMockData;
+  emails: TBaseMockData;
+  avatars: TBaseMockData;
+}
