@@ -1,6 +1,5 @@
 import { ICommand } from './command.interface';
-import { IMockServerData, TsvOfferGenerator } from '../../shared';
-import got from 'got';
+import { IMockServerData, request, TsvOfferGenerator } from '../../shared';
 import chalk from 'chalk';
 import { TsvFileWriter } from '../../shared/libs/file-writer';
 
@@ -13,9 +12,9 @@ export class GenerateCommand implements ICommand {
 
   private async load(url: string): Promise<void> {
     try {
-      this.initialData = await got.get(url).json();
-    } catch {
-      throw new Error(`Can't load data from ${url}`);
+      this.initialData = await request<IMockServerData>(url);
+    } catch (error) {
+      throw new Error(`Can't load data from ${url}. ${error}`);
     }
   }
 

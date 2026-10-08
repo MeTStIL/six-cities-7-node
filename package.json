@@ -20,7 +20,7 @@
     "mock:server": "json-server ./mocks/mock-server-data.json --port 3000"
   },
   "devDependencies": {
-    "@types/node": "18.16.3",
+    "@types/node": "^18.19.130",
     "@typescript-eslint/eslint-plugin": "5.46.0",
     "@typescript-eslint/parser": "5.46.0",
     "eslint": "8.39.0",
