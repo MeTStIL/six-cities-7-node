@@ -2,7 +2,7 @@ import { IFileReader } from './file-reader.interface';
 import EventEmitter from 'node:events';
 import { createReadStream } from 'node:fs';
 
-const CHUNK_SIZE = 16384; // 16KB
+const KB_16 = 16384;
 
 export interface TsvFileReader {
   on(eventName: 'line', listener: (line: string) => void): this;
@@ -20,7 +20,7 @@ export class TsvFileReader extends EventEmitter implements IFileReader {
   public async read(): Promise<void> {
     try {
       const readStream = createReadStream(this.filename, {
-        highWaterMark: CHUNK_SIZE,
+        highWaterMark: KB_16,
         encoding: 'utf-8',
       });
 
