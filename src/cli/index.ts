@@ -1,3 +1,3 @@
-export * from './commands/index.js';
-export * from './command-parser.js';
-export * from './cli-application.js';
+export * from './commands';
+export * from './command-parser';
+export * from './cli-application';

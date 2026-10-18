@@ -1,0 +1,56 @@
+{
+  "api": {
+    "titles": [
+      "Крутой дом",
+      "Прикольная квартирка",
+      "Нормальные апартаменты",
+      "Старый страшный дом",
+      "Крутая хай-тек квартира",
+      "Комната в стиле Майнкрафт"
+    ],
+    "descriptions": [
+      "Уединенное шале среди деревьев с дровяной печью и тишиной.",
+      "Лаконичный скандинавский интерьер в двух шагах от яхтенной марины.",
+      "Панорамные окна, вечерние огни города и атмосфера для свиданий.",
+      "Особняк с патио, инфинити-бассейном и видом на закатное побережье.",
+      "Индустриальный лофт в арт-квартале с кирпичными стенами и мансардой.",
+      "Старинный особняк у набережной с отреставрированной лепниной."
+    ],
+    "previewImages": [
+      "preview-image1.jpg",
+      "preview-image2.jpg",
+      "preview-image3.jpg",
+      "preview-image4.jpg",
+      "preview-image5.jpg",
+      "preview-image6.jpg"
+    ],
+    "images": [
+      "first-image1.jpg;second-image1.jpg",
+      "first-image2.jpg;second-image2.jpg;third-image2.jpg;fourth-image2.jpg",
+      "first-image3.jpg",
+      "first-image4.jpg;second-image4.jpg;third-image4.jpg;fourth-image4.jpg;fifth-image4.jpg",
+      "first-image5.jpg;second-image5.jpg;third-image5.jpg",
+      "first-image6.jpg;second-image6.jpg;third-image6.jpg;fourth-image6.jpg"
+    ],
+    "authors": ["Marmok Boss", "Slava Buster", "Oleg Coffie", "Iliya Exile", "Vanya Dmitrienko", "Temny Prince"],
+    "emails": [
+      "marmok.boss@six-cities.com",
+      "slava.buster@six-cities.com",
+      "oleg.coffie@six-cities.com",
+      "iliya.exile@six-cities.com",
+      "vanya.dmitrienko@six-cities.com",
+      "temny.prince@six-cities.com"
+    ],
+    "avatars": [
+      "marmok_boss.jpg",
+      "slava_buster.jpg",
+      "oleg_coffie.jpg",
+      "iliya_exile.jpg",
+      "vanya_dmitrienko.jpg",
+      "temny_prince.jpg"
+    ]
+  },
+  "neApi": {
+    "123": "213"
+  }
+}

@@ -1,4 +1,3 @@
-export const AVAILABLE_CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
-export const AVAILABLE_CITIES_SET: ReadonlySet<string> = new Set<string>(AVAILABLE_CITIES);
+import { AVAILABLE_CITIES } from '../constants/city';
 
-export type TAvailableCity = (typeof AVAILABLE_CITIES)[number];
+export type TCity = (typeof AVAILABLE_CITIES)[number];
