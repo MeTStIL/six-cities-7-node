@@ -1,7 +1,7 @@
 import { ICommand } from './command.interface';
 import { IMockServerData, request, TsvOfferGenerator } from '../../shared';
 import chalk from 'chalk';
-import { TsvFileWriter } from '../../shared/libs/file-writer';
+import { TsvFileWriter } from '../../shared';
 
 export class GenerateCommand implements ICommand {
   private initialData!: IMockServerData;
