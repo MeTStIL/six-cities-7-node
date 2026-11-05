@@ -1,4 +1,6 @@
-export const ROOMS_CONFIG = {
+import { IAppConfigProps } from '../types';
+
+export const ROOMS_CONFIG: IAppConfigProps = {
   min: 1,
   max: 8,
-} as const;
+};

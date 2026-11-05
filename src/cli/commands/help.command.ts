@@ -1,5 +1,6 @@
 import { ICommand } from './command.interface';
 import chalk from 'chalk';
+import { DB_NAME } from '../../shared';
 
 export class HelpCommand implements ICommand {
   public getName(): string {
@@ -12,10 +13,10 @@ export class HelpCommand implements ICommand {
         Пример:
             ${chalk.green('main.cli.js')} ${chalk.bgBlue('--<command>')} ${chalk.bgCyanBright('[--arguments]')}
         Команды:
-            --help:                      # печатает этот текст
-            --version:                   # выводит номер версии
-            --import <path>:             # импортирует данные из TSV
-            --generate <n> <path> <url>  # генерирует произвольное количество тестовых данных
+            --help:                                                         # печатает этот текст
+            --version:                                                      # выводит номер версии
+            --import <path> <login> <password> <host> <database> <salt>:    # импортирует данные из ${DB_NAME}
+            --generate <n> <path> <url>                                     # генерирует произвольное количество тестовых данных
     `);
   }
 }

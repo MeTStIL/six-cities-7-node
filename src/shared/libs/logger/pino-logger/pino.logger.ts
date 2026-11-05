@@ -1,7 +1,7 @@
 import { Logger as PinoInstance, pino, transport } from 'pino';
-import { ILogger } from './logger.interface';
+import { ILogger } from '../logger.interface';
 import { injectable } from 'inversify';
-import { getCurrentModuleDirectoryPath } from '../../helpers';
+import { getCurrentModuleDirectoryPath } from '../../../helpers';
 import { resolve } from 'node:path';
 
 @injectable()

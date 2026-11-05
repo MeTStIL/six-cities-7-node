@@ -1,4 +1,4 @@
-import { Config } from './config.interface';
+import { IConfig } from './config.interface';
 import { REST_SCHEMA_CONFIG, TRestSchema } from './rest.schema';
 import { inject, injectable } from 'inversify';
 import { Component } from '../../types';
@@ -6,7 +6,7 @@ import { ILogger } from '../logger';
 import { config } from 'dotenv';
 
 @injectable()
-export class RestConfig implements Config<TRestSchema> {
+export class RestConfig implements IConfig<TRestSchema> {
   private readonly config: TRestSchema;
 
   constructor(@inject(Component.Logger) private readonly logger: ILogger) {
