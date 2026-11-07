@@ -1,7 +1,6 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, PropType, Ref } from '@typegoose/typegoose';
 import { TAmenity, TCity, THousing, TLocation } from '../../types';
 import { UserEntity } from '../user';
-import { AVAILABLE_AMENITIES_SET } from '../../constants';
 
 class Location {
   @prop({ required: true, type: () => Number })
@@ -57,7 +56,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, type: () => Number })
   public price!: number;
 
-  @prop({ required: true, type: () => [String], enum: [...AVAILABLE_AMENITIES_SET] }, PropType.ARRAY)
+  @prop({ required: true, type: () => [String] }, PropType.ARRAY)
   public amenities!: TAmenity[];
 
   @prop({
