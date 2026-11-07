@@ -1,6 +1,15 @@
-import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
+import { defaultClasses, getModelForClass, modelOptions, prop, PropType, Ref } from '@typegoose/typegoose';
 import { TAmenity, TCity, THousing, TLocation } from '../../types';
 import { UserEntity } from '../user';
+import { AVAILABLE_AMENITIES_SET } from '../../constants';
+
+class Location {
+  @prop({ required: true, type: () => Number })
+  public latitude!: number;
+
+  @prop({ required: true, type: () => Number })
+  public longitude!: number;
+}
 
 export interface OfferEntity extends defaultClasses.Base {}
 
@@ -12,7 +21,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, type: () => String })
   public description!: string;
 
-  @prop({ required: true, type: () => Date })
+  @prop({ required: true, type: () => Date, default: new Date() })
   public postDate!: Date;
 
   @prop({ required: true, type: () => String })
@@ -21,13 +30,13 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, type: () => String })
   public previewImage!: string;
 
-  @prop({ required: true, type: () => String })
-  public images!: Array<string>;
+  @prop({ required: true, type: () => [String] }, PropType.ARRAY)
+  public images!: string[];
 
   @prop({ required: true, type: () => Boolean })
   public isPremium!: boolean;
 
-  @prop({ required: true, type: () => Boolean })
+  @prop({ required: true, type: () => Boolean, default: false })
   public isFavorite!: boolean;
 
   @prop({ required: true, default: 0, type: () => Number })
@@ -48,8 +57,8 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, type: () => Number })
   public price!: number;
 
-  @prop({ required: true, type: () => String })
-  public amenities!: Array<TAmenity>;
+  @prop({ required: true, type: () => [String], enum: [...AVAILABLE_AMENITIES_SET] }, PropType.ARRAY)
+  public amenities!: TAmenity[];
 
   @prop({
     required: true,
@@ -60,7 +69,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, default: 0, type: () => Number })
   public commentsCount!: number;
 
-  @prop({ required: true, type: () => Number })
+  @prop({ required: true, _id: false, type: () => Location })
   public location!: TLocation;
 }
 

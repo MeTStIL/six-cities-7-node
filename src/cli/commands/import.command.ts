@@ -11,6 +11,7 @@ import {
   IUserService,
   MongoDatabaseClient,
   OfferModel,
+  TAmenity,
   TRentalOffer,
   TsvFileReader,
   UserModel,
@@ -58,6 +59,7 @@ export class ImportCommand implements ICommand {
     await this.offerService.create({
       title: offer.title,
       description: offer.description,
+      postDate: offer.postDate,
       city: offer.city ?? 'Paris',
       previewImage: offer.previewImage,
       images: offer.images,
@@ -66,7 +68,7 @@ export class ImportCommand implements ICommand {
       rooms: offer.rooms,
       maxGuests: offer.maxGuests,
       price: offer.price,
-      amenities: offer.amenities.filter(Boolean).filter((item) => isAvailableAmenity(item!)),
+      amenities: offer.amenities.filter((item): item is TAmenity => Boolean(item && isAvailableAmenity(item))),
       authorId: user.id,
       location: offer.location,
     });
@@ -94,5 +96,6 @@ export class ImportCommand implements ICommand {
     fileReader.on('end', this.onCompleteImport);
 
     await fileReader.read();
+    await this.databaseClient.disconnect();
   }
 }
