@@ -12,7 +12,7 @@ export type TRentalOffer = {
   previewImage: string;
   images: Array<string>;
   isPremium: boolean;
-  isFavourite: boolean;
+  isFavorite: boolean;
   rating: number;
   housingType: THousing | undefined;
   rooms: number;

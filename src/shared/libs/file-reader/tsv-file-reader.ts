@@ -5,10 +5,10 @@ import { createReadStream } from 'node:fs';
 const KB_16 = 16384;
 
 export interface TsvFileReader {
-  on(eventName: 'line', listener: (line: string) => void): this;
+  on(eventName: 'line', listener: (line: string, resolve: () => void) => void): this;
   on(eventName: 'end', listener: (parsedLineCount: number) => void): this;
 
-  emit(eventName: 'line', line: string): boolean;
+  emit(eventName: 'line', line: string, resolve: () => void): boolean;
   emit(eventName: 'end', parsedLineCount: number): boolean;
 }
 
@@ -36,7 +36,9 @@ export class TsvFileReader extends EventEmitter implements IFileReader {
           remainingData = remainingData.slice(++nextLinePosition);
           importedRowCount++;
 
-          this.emit('line', completeRow);
+          await new Promise<void>((resolve) => {
+            this.emit('line', completeRow, resolve);
+          });
         }
       }
 
