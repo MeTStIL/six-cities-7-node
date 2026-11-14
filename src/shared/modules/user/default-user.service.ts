@@ -1,9 +1,8 @@
 import { IUserService } from './user-service.interface';
 import { UserEntity } from './user.entity';
-import { CreateUserDto } from './dto';
-import { DocumentType, types } from '@typegoose/typegoose';
+import { types } from '@typegoose/typegoose';
 import { inject, injectable } from 'inversify';
-import { Component, TId } from '../../types';
+import { Component } from '../../types';
 import { ILogger } from '../../libs';
 
 @injectable()
@@ -13,7 +12,7 @@ export class DefaultUserService implements IUserService {
     @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>,
   ) {}
 
-  public create = async (dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> => {
+  public create: IUserService['create'] = async (dto, salt) => {
     const user = new UserEntity(dto);
     user.setPassword(dto.password, salt);
 
@@ -23,14 +22,19 @@ export class DefaultUserService implements IUserService {
     return result;
   };
 
-  public findByEmail = async (email: string): Promise<DocumentType<UserEntity> | null> =>
-    this.userModel.findOne({ email });
+  public findByEmail: IUserService['findByEmail'] = async (email) => this.userModel.findOne({ email });
 
-  public findById = async (id: TId): Promise<DocumentType<UserEntity> | null> => this.userModel.findById(id);
+  public findById: IUserService['findById'] = async (userId) => this.userModel.findById(userId);
 
-  public findOrCreate = async (dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> => {
+  public findOrCreate: IUserService['findOrCreate'] = async (dto, salt) => {
     const existedUser = await this.findByEmail(dto.email);
 
     return existedUser ?? (await this.create(dto, salt));
   };
+
+  public addToFavorites: IUserService['addToFavorites'] = async (userId, offerId) =>
+    this.userModel.findByIdAndUpdate(userId, { $addToSet: { favorites: offerId } }, { new: true }).exec();
+
+  public removeFromFavorites: IUserService['removeFromFavorites'] = async (userId, offerId) =>
+    this.userModel.findByIdAndUpdate(userId, { $pull: { favorites: offerId } }, { new: true }).exec();
 }

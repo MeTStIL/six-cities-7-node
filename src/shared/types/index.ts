@@ -5,5 +5,6 @@ export * from './component.enum';
 export * from './housing.type';
 export * from './location.type';
 export * from './rental-offer.type';
+export * from './sort-type.enum';
 export * from './user.type';
 export * from './mock-server-data.type';

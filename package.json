@@ -10,8 +10,8 @@
   "main": "main.js",
   "scripts": {
     "start": "vite-node src/main.ts",
-    "dev-cli": "vite-node src/main.cli.ts",
-    "dev-rest": "vite-node src/main.rest.ts | pino-pretty --colorize --translateTime SYS:standard",
+    "dev-cli": "vite-node --watch src/main.cli.ts",
+    "dev-rest": "vite-node --watch  src/main.rest.ts | pino-pretty --colorize --translateTime SYS:standard",
     "build": "npm run typecheck && rimraf dist && vite build && chmod u+x dist/main.cli.js",
     "lint": "eslint src/ --ext .ts",
     "typecheck": "tsc --noEmit",
