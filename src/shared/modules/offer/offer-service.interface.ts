@@ -6,7 +6,7 @@ import { TCity, TId } from '../../types';
 type TDocumentOfferEntity = DocumentType<OfferEntity>;
 
 export interface IOfferService {
-  create: (dto: CreateOfferDto) => Promise<TDocumentOfferEntity>;
+  create: (dto: CreateOfferDto, postDate?: Date) => Promise<TDocumentOfferEntity>;
   find: (limit?: number) => Promise<Array<TDocumentOfferEntity>>;
   findPremiumByCity: (city: TCity, limit?: number) => Promise<Array<TDocumentOfferEntity>>;
   findById: (offerId: TId) => Promise<TDocumentOfferEntity | null>;

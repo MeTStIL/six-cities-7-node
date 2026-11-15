@@ -1,8 +1,8 @@
-import { defaultClasses, getModelForClass, modelOptions, prop, PropType, Ref } from '@typegoose/typegoose';
-import { TAmenity, TCity, THousing, TLocation } from '../../types';
+import { defaultClasses, getModelForClass, modelOptions, prop, PropType, type Ref } from '@typegoose/typegoose';
+import type { TAmenity, TCity, THousing, TLocation } from '../../types';
 import { UserEntity } from '../user';
 
-class Location {
+class LocationEntity {
   @prop({ required: true, type: () => Number })
   public latitude!: number;
 
@@ -20,7 +20,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, type: () => String })
   public description!: string;
 
-  @prop({ required: true, type: () => Date, default: new Date() })
+  @prop({ required: true, type: () => Date, default: Date.now })
   public postDate!: Date;
 
   @prop({ required: true, type: () => String })
@@ -30,13 +30,10 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public previewImage!: string;
 
   @prop({ required: true, type: () => [String] }, PropType.ARRAY)
-  public images!: string[];
+  public images!: Array<string>;
 
   @prop({ required: true, type: () => Boolean })
   public isPremium!: boolean;
-
-  @prop({ required: true, type: () => Boolean, default: false })
-  public isFavorite!: boolean;
 
   @prop({ required: true, default: 0, type: () => Number })
   public rating!: number;
@@ -57,7 +54,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public price!: number;
 
   @prop({ required: true, type: () => [String] }, PropType.ARRAY)
-  public amenities!: TAmenity[];
+  public amenities!: Array<TAmenity>;
 
   @prop({
     required: true,
@@ -68,7 +65,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, default: 0, type: () => Number })
   public commentsCount!: number;
 
-  @prop({ required: true, _id: false, type: () => Location })
+  @prop({ required: true, _id: false, type: () => LocationEntity })
   public location!: TLocation;
 }
 

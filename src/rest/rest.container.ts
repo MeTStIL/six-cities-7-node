@@ -1,9 +1,11 @@
 import { Container } from 'inversify';
 import { RestApplication } from './rest.application';
 import {
+  AppExceptionFilter,
   Component,
   IConfig,
   IDatabaseClient,
+  IExceptionFilter,
   ILogger,
   MongoDatabaseClient,
   PinoLogger,
@@ -18,6 +20,7 @@ export const createRestApplicationContainer = (): Container => {
   restApplicationContainer.bind<ILogger>(Component.Logger).to(PinoLogger).inSingletonScope();
   restApplicationContainer.bind<IConfig<TRestSchema>>(Component.Config).to(RestConfig).inSingletonScope();
   restApplicationContainer.bind<IDatabaseClient>(Component.DatabaseClient).to(MongoDatabaseClient).inSingletonScope();
+  restApplicationContainer.bind<IExceptionFilter>(Component.ExceptionFilter).to(AppExceptionFilter).inSingletonScope();
 
   return restApplicationContainer;
 };

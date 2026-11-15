@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { AVAILABLE_AMENITIES, getRandomItems } from './shared';
 
 const test = 'tset';

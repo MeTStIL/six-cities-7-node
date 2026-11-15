@@ -1,9 +1,8 @@
-import { TAmenity, TCity, THousing, TLocation } from '../../../types';
+import type { TAmenity, TCity, THousing, TLocation } from '../../../types';
 
 export class CreateOfferDto {
   public title!: string;
   public description!: string;
-  public postDate?: Date;
   public city!: TCity;
   public previewImage!: string;
   public images!: Array<string>;

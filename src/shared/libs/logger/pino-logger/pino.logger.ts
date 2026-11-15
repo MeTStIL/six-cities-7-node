@@ -32,19 +32,19 @@ export class PinoLogger implements ILogger {
     this.logger.info('PinoLogger created…');
   }
 
-  public info(message: string, ...args: unknown[]): void {
+  public info(message: string, ...args: Array<unknown>): void {
     this.logger.info(message, ...args);
   }
 
-  public warn(message: string, ...args: unknown[]): void {
+  public warn(message: string, ...args: Array<unknown>): void {
     this.logger.warn(message, ...args);
   }
 
-  public error(message: string, error: Error, ...args: unknown[]): void {
+  public error(message: string, error: Error, ...args: Array<unknown>): void {
     this.logger.error(error, message, ...args);
   }
 
-  public debug(message: string, ...args: unknown[]): void {
+  public debug(message: string, ...args: Array<unknown>): void {
     this.logger.debug(message, ...args);
   }
 }

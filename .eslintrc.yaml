@@ -17,6 +17,7 @@ rules:
   node/file-extension-in-import: off
 
   "@typescript-eslint/no-unused-vars": off
+  "@typescript-eslint/array-type": ["error", { default: "generic" }]
   "unused-imports/no-unused-imports": "error"
   "unused-imports/no-unused-vars":
     - "warn"

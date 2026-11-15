@@ -7,7 +7,7 @@ export class HelpCommand implements ICommand {
     return '--help';
   }
 
-  public async execute(..._parameters: string[]): Promise<void> {
+  public async execute(..._parameters: Array<string>): Promise<void> {
     console.info(`
         Программа для подготовки данных для REST API сервера.
         Пример:

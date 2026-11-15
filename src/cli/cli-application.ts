@@ -1,6 +1,6 @@
 import { CommandParser } from './command-parser';
 import { ICommand } from './commands';
-import { printError } from '../shared/helpers/print-error';
+import { printError } from '../shared';
 
 type CommandCollection = Record<string, ICommand>;
 
@@ -9,7 +9,7 @@ export class CLIApplication {
 
   constructor(private readonly defaultCommand: string = '--help') {}
 
-  public registerCommands(commandList: ICommand[]): void {
+  public registerCommands(commandList: Array<ICommand>): void {
     commandList.forEach((command) => {
       if (Object.hasOwn(this.commands, command.getName())) {
         throw new Error(`Command ${command.getName()} is already registered`);
@@ -29,7 +29,7 @@ export class CLIApplication {
     return this.commands[this.defaultCommand];
   }
 
-  public processCommand(argv: string[]): void {
+  public processCommand(argv: Array<string>): void {
     const parsedCommand = CommandParser.parse(argv);
     const [commandName] = Object.keys(parsedCommand);
     const command = this.getCommand(commandName);

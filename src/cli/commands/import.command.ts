@@ -56,22 +56,24 @@ export class ImportCommand implements ICommand {
       this.salt,
     );
 
-    await this.offerService.create({
-      title: offer.title,
-      description: offer.description,
-      postDate: offer.postDate,
-      city: offer.city ?? 'Paris',
-      previewImage: offer.previewImage,
-      images: offer.images,
-      isPremium: offer.isPremium,
-      housingType: offer.housingType ?? 'house',
-      rooms: offer.rooms,
-      maxGuests: offer.maxGuests,
-      price: offer.price,
-      amenities: offer.amenities.filter((item): item is TAmenity => Boolean(item && isAvailableAmenity(item))),
-      authorId: user.id,
-      location: offer.location,
-    });
+    await this.offerService.create(
+      {
+        title: offer.title,
+        description: offer.description,
+        city: offer.city ?? 'Paris',
+        previewImage: offer.previewImage,
+        images: offer.images,
+        isPremium: offer.isPremium,
+        housingType: offer.housingType ?? 'house',
+        rooms: offer.rooms,
+        maxGuests: offer.maxGuests,
+        price: offer.price,
+        amenities: offer.amenities.filter((item): item is TAmenity => Boolean(item && isAvailableAmenity(item))),
+        authorId: user.id,
+        location: offer.location,
+      },
+      offer.postDate,
+    );
   }
 
   private onCompleteImport(count: number) {

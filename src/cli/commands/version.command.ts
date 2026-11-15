@@ -27,7 +27,7 @@ export class VersionCommand implements ICommand {
     return importedContent.version;
   }
 
-  public async execute(..._parameters: string[]): Promise<void> {
+  public async execute(..._parameters: Array<string>): Promise<void> {
     try {
       const version = this.readVersion();
       console.info(version);

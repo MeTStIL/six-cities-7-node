@@ -1,8 +1,8 @@
-import { TUser } from '../../types';
-import { prop, defaultClasses, modelOptions, getModelForClass, Ref, PropType } from '@typegoose/typegoose';
+import type { TUser } from '../../types';
+import { prop, defaultClasses, modelOptions, getModelForClass, PropType, type Ref } from '@typegoose/typegoose';
 import { USER_CONFIG } from '../../constants';
 import { createSHA256 } from '../../helpers';
-import type { OfferEntity } from '../offer/offer.entity';
+import type { OfferEntity } from '../offer';
 
 export interface UserEntity extends defaultClasses.Base {}
 
@@ -14,7 +14,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
   @prop({ required: true, unique: true, type: () => String })
   public email: string;
 
-  @prop({ required: false, default: '', type: () => String })
+  @prop({ required: false, default: 'default-avatar.jpg', type: () => String })
   public avatar?: string;
 
   @prop({
@@ -33,7 +33,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
     },
     PropType.ARRAY,
   )
-  public favorites!: Ref<OfferEntity>[];
+  public favorites!: Array<Ref<OfferEntity>>;
 
   constructor(userData: TUser) {
     super();

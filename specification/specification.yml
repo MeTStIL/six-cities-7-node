@@ -428,68 +428,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFoundResponse'
 
-  /favorites/{offerId}/{status}:
-    post:
-      tags:
-        - favorites
-      summary: Добавление или удаление предложения из избранного по статусу
-      description: |-
-        Изменяет статус нахождения предложения в избранном:
-        - 1 — добавить предложение в избранное;
-        - 0 — удалить предложение из избранного.
-      operationId: setFavoriteOfferStatus
-      security:
-        - bearerAuth: []
-      parameters:
-        - $ref: '#/components/parameters/OfferIdParam'
-        - $ref: '#/components/parameters/FavoriteStatusParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/FavoriteToggleResponse'
-        '400':
-          $ref: '#/components/responses/BadRequestResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-
-  /favorite:
-    get:
-      tags:
-        - favorites
-      summary: Список избранных предложений — совместимый маршрут
-      description: Алиас маршрута /favorites для клиентской части приложения.
-      operationId: getFavoriteOffersAlias
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          $ref: '#/components/responses/FavoriteOffersResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-
-  /favorite/{offerId}/{status}:
-    post:
-      tags:
-        - favorites
-      summary: Добавление или удаление предложения из избранного — совместимый маршрут (5.14)
-      description: Алиас маршрута /favorites/{offerId}/{status} для клиентской части приложения.
-      operationId: setFavoriteOfferStatusAlias
-      security:
-        - bearerAuth: []
-      parameters:
-        - $ref: '#/components/parameters/OfferIdParam'
-        - $ref: '#/components/parameters/FavoriteStatusParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/FavoriteToggleResponse'
-        '400':
-          $ref: '#/components/responses/BadRequestResponse'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          $ref: '#/components/responses/NotFoundResponse'
-
 components:
   securitySchemes:
     bearerAuth:
@@ -535,16 +473,6 @@ components:
       description: Название одного из шести доступных городов
       schema:
         $ref: '#/components/schemas/City'
-
-    FavoriteStatusParam:
-      name: status
-      in: path
-      required: true
-      description: Признак добавления (1) или удаления (0) из избранного
-      schema:
-        type: integer
-        enum: [0, 1]
-        example: 1
 
   responses:
     UserCreatedResponse:

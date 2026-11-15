@@ -1,10 +1,9 @@
 import { inject, injectable } from 'inversify';
-import { IOfferService } from './offer-service.interface';
+import type { IOfferService } from './offer-service.interface';
 import { Component, SortType } from '../../types';
-import { ILogger } from '../../libs';
-import { DocumentType, types } from '@typegoose/typegoose';
-import { OfferEntity } from './offer.entity';
-import { CreateOfferDto } from './dto';
+import type { ILogger } from '../../libs';
+import type { types } from '@typegoose/typegoose';
+import type { OfferEntity } from './offer.entity';
 import { DEFAULT_OFFERS_COUNT, DEFAULT_PREMIUM_OFFERS_COUNT } from './offer.constants';
 
 @injectable()
@@ -14,8 +13,23 @@ export class DefaultOfferService implements IOfferService {
     @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
   ) {}
 
-  public create = async (dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> => {
-    const result = await this.offerModel.create(dto);
+  public create: IOfferService['create'] = async (dto, postDate) => {
+    const result = await this.offerModel.create({
+      title: dto.title,
+      description: dto.description,
+      postDate,
+      city: dto.city,
+      previewImage: dto.previewImage,
+      images: dto.images,
+      isPremium: dto.isPremium,
+      housingType: dto.housingType,
+      rooms: dto.rooms,
+      maxGuests: dto.maxGuests,
+      price: dto.price,
+      amenities: dto.amenities,
+      authorId: dto.authorId,
+      location: dto.location,
+    });
     this.logger.info(`New offer created: ${dto.title}`);
 
     return result;
