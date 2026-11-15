@@ -88,7 +88,7 @@ export class OfferController extends BaseController {
       throw new HttpError(StatusCodes.NOT_FOUND, 'Offer was not found.');
     }
 
-    this.ok(res, Object.assign(fillDTO(OfferRdo, offer), { isFavorite: favoriteIds.has(offer._id.toString()) }));
+    this.ok(res, Object.assign(fillDTO(OfferRdo, offer), { isFavorite: favoriteIds.has(offer.id) }));
   }
 
   public async update({ params, query, body }: TUpdateOfferRequest, res: TResponse<OfferRdo>): Promise<void> {
@@ -101,7 +101,7 @@ export class OfferController extends BaseController {
       throw new HttpError(StatusCodes.NOT_FOUND, 'Offer was not found.');
     }
 
-    this.ok(res, Object.assign(fillDTO(OfferRdo, offer), { isFavorite: favoriteIds.has(offer._id.toString()) }));
+    this.ok(res, Object.assign(fillDTO(OfferRdo, offer), { isFavorite: favoriteIds.has(offer.id) }));
   }
 
   public async remove({ params }: TRemoveOfferRequest, res: TResponse<never>): Promise<void> {
@@ -134,7 +134,7 @@ export class OfferController extends BaseController {
     favoriteIds: ReadonlySet<string>,
   ): Array<ShortOfferRdo> {
     return offers.map((offer) =>
-      Object.assign(fillDTO(ShortOfferRdo, offer), { isFavorite: favoriteIds.has(offer._id.toString()) }),
+      Object.assign(fillDTO(ShortOfferRdo, offer), { isFavorite: favoriteIds.has(offer.id) }),
     );
   }
 }
