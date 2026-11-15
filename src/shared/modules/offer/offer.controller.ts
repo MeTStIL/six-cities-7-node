@@ -62,7 +62,7 @@ export class OfferController extends BaseController {
 
     const offer = await this.offerService.create(body);
     await offer.populate('authorId');
-    this.created(res, Object.assign(fillDTO(OfferRdo, offer), { isFavorite: false }));
+    this.created(res, { ...fillDTO(OfferRdo, offer), isFavorite: false });
   }
 
   public async premium({ params, query }: TPremiumOffersRequest, res: TResponse<Array<ShortOfferRdo>>): Promise<void> {
@@ -88,7 +88,7 @@ export class OfferController extends BaseController {
       throw new HttpError(StatusCodes.NOT_FOUND, 'Offer was not found.');
     }
 
-    this.ok(res, Object.assign(fillDTO(OfferRdo, offer), { isFavorite: favoriteIds.has(offer.id) }));
+    this.ok(res, { ...fillDTO(OfferRdo, offer), isFavorite: favoriteIds.has(offer.id) });
   }
 
   public async update({ params, query, body }: TUpdateOfferRequest, res: TResponse<OfferRdo>): Promise<void> {
@@ -101,7 +101,7 @@ export class OfferController extends BaseController {
       throw new HttpError(StatusCodes.NOT_FOUND, 'Offer was not found.');
     }
 
-    this.ok(res, Object.assign(fillDTO(OfferRdo, offer), { isFavorite: favoriteIds.has(offer.id) }));
+    this.ok(res, { ...fillDTO(OfferRdo, offer), isFavorite: favoriteIds.has(offer.id) });
   }
 
   public async remove({ params }: TRemoveOfferRequest, res: TResponse<never>): Promise<void> {
@@ -133,8 +133,9 @@ export class OfferController extends BaseController {
     offers: Awaited<ReturnType<IOfferService['find']>>,
     favoriteIds: ReadonlySet<string>,
   ): Array<ShortOfferRdo> {
-    return offers.map((offer) =>
-      Object.assign(fillDTO(ShortOfferRdo, offer), { isFavorite: favoriteIds.has(offer.id) }),
-    );
+    return offers.map((offer) => ({
+      ...fillDTO(ShortOfferRdo, offer),
+      isFavorite: favoriteIds.has(offer.id),
+    }));
   }
 }

@@ -29,10 +29,7 @@ export class FavoriteController extends BaseController {
     }
 
     const offers = await this.offerService.findManyByIds(user.favorites.map(String));
-    this.ok(
-      res,
-      offers.map((offer) => Object.assign(fillDTO(ShortOfferRdo, offer), { isFavorite: true })),
-    );
+    this.ok(res, offers.map((offer) => ({ ...fillDTO(ShortOfferRdo, offer), isFavorite: true })));
   }
 
   public add(req: TFavoriteOfferRequest, res: TResponse<OfferRdo>): Promise<void> {
@@ -64,6 +61,6 @@ export class FavoriteController extends BaseController {
       throw new HttpError(StatusCodes.NOT_FOUND, 'User was not found.');
     }
 
-    this.ok(res, Object.assign(fillDTO(OfferRdo, offer), { isFavorite }));
+    this.ok(res, { ...fillDTO(OfferRdo, offer), isFavorite });
   }
 }
