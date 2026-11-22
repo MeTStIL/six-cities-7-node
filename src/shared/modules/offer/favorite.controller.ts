@@ -17,9 +17,11 @@ export class FavoriteController extends BaseController {
   ) {
     super(logger);
 
-    this.addRoute({ path: '/favorites', method: HttpMethod.GET, handler: this.index });
-    this.addRoute({ path: '/favorites/:offerId', method: HttpMethod.POST, handler: this.add });
-    this.addRoute({ path: '/favorites/:offerId', method: HttpMethod.DELETE, handler: this.remove });
+    this.logger.info('Register routes for FavoriteController...');
+
+    this.addRoute({ path: '/', method: HttpMethod.GET, handler: this.index });
+    this.addRoute({ path: '/:offerId', method: HttpMethod.POST, handler: this.add });
+    this.addRoute({ path: '/:offerId', method: HttpMethod.DELETE, handler: this.remove });
   }
 
   public async index({ query }: TFavoriteListRequest, res: TResponse<Array<ShortOfferRdo>>): Promise<void> {
@@ -29,7 +31,10 @@ export class FavoriteController extends BaseController {
     }
 
     const offers = await this.offerService.findManyByIds(user.favorites.map(String));
-    this.ok(res, offers.map((offer) => ({ ...fillDTO(ShortOfferRdo, offer), isFavorite: true })));
+    this.ok(
+      res,
+      offers.map((offer) => ({ ...fillDTO(ShortOfferRdo, offer), isFavorite: true })),
+    );
   }
 
   public add(req: TFavoriteOfferRequest, res: TResponse<OfferRdo>): Promise<void> {

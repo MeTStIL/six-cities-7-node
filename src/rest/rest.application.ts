@@ -61,7 +61,7 @@ export class RestApplication {
   private async _initControllers() {
     this.server.use('/offers', this.offerController.router);
     this.server.use('/users', this.userController.router);
-    this.server.use(this.favoriteController.router);
+    this.server.use('/favorites', this.favoriteController.router);
   }
 
   private async _initServer() {
